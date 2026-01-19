@@ -20,9 +20,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Fade } from "react-awesome-reveal";
+import { useTheme } from "next-themes";
 
 const RegisterPage = () => {
   const [clicked, setClicked] = useState(false);
+
+  const { theme } = useTheme();
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -33,7 +36,7 @@ const RegisterPage = () => {
       <Fade delay={200}>
         <div className="w-82.5">
           <div className="text-center text-4xl text-green-600 font-bold">
-            Eden<span className="text-black font-black">.</span>
+            eden<span className="text-black font-black">.</span>
           </div>
 
           <div className="font-black text-center mt-4 mb-10 text-gray-600">
@@ -56,10 +59,14 @@ const RegisterPage = () => {
           {/* OR SECTION */}
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t border-muted-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">or</span>
+              <span
+                className={`${theme === "light" ? "bg-white" : "bg-black"} px-2 text-gray-500`}
+              >
+                or
+              </span>
             </div>
           </div>
 
@@ -100,7 +107,7 @@ const RegisterPage = () => {
 
           {/* ACCEPT TERMS AND CONDITION */}
           <div className="flex items-center gap-2 mb-2">
-            <Checkbox id="terms" defaultChecked />
+            <Checkbox id="terms" className="border border-green-600" />
             <Label
               htmlFor="terms"
               className="flex my-4 gap-1 items-center text-sm justify-start font-bold"

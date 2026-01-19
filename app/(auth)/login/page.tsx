@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Fade } from "react-awesome-reveal";
+import { useTheme } from "next-themes";
 
 const LoginPage = () => {
   const [clicked, setClicked] = useState(false);
@@ -25,13 +26,15 @@ const LoginPage = () => {
     setClicked(!clicked);
   };
 
+  const { theme } = useTheme();
+
   return (
     <div className="flex items-center justify-center h-screen">
       <Fade>
         <div className="w-82.5">
-          <h1 className="text-center text-green-600 font-bold">
-            Eden<span className="text-black font-black">.</span>
-          </h1>
+          <div className="text-center text-4xl text-green-600 mb-4 font-bold">
+            eden<span className="text-black font-black">.</span>
+          </div>
 
           {/* LOGIN FORM */}
           <div>
@@ -63,22 +66,28 @@ const LoginPage = () => {
 
           {/* FORGOT PASSWORD */}
           <Link
-            href={"#"}
+            href={"/forgot-password"}
             className="flex my-4 mb-5 items-center text-sm justify-start font-bold"
           >
             Having trouble signing in?
           </Link>
 
-          <Button className="bg-green-600 h-12 w-full font-bold">
-            Login <ArrowRightIcon />
-          </Button>
+          <Link href={"/home"}>
+            <Button className="bg-green-600 h-12 w-full font-bold">
+              Login <ArrowRightIcon />
+            </Button>
+          </Link>
 
           <div className="relative mt-4">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">or</span>
+              <span
+                className={`${theme === "light" ? "bg-white" : "bg-black"} px-2 text-gray-500`}
+              >
+                or
+              </span>
             </div>
           </div>
 
