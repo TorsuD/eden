@@ -72,7 +72,7 @@ const Products = () => {
         </div>
 
         {/* PRODUCTS */}
-        <div className="grid grid-cols-5 mt-10 items-center gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-5 mt-10 items-center gap-3">
           {Array.from({ length: 20 }).map((_, index) => (
             <ProductItem key={index} />
           ))}

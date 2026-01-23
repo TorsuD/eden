@@ -83,11 +83,11 @@ const LoginPage = () => {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span
-                className={`${theme === "light" ? "bg-white" : "bg-black"} px-2 text-gray-500`}
+              <div
+                className={`${theme === "dark" || "system" ? "bg-white" : "bg-black"} px-2 text-gray-500`}
               >
                 or
-              </span>
+              </div>
             </div>
           </div>
 
