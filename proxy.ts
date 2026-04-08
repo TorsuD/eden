@@ -4,7 +4,7 @@ import { verifyToken, COOKIE_NAME } from "./lib/auth";
 const PROTECTED_PATHS = ["/home", "/products", "/checkout", "/orders"];
 const AUTH_PATHS = ["/login", "/register", "/forgot-password", "/reset-password"];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get(COOKIE_NAME)?.value;
   const user = token ? await verifyToken(token) : null;
