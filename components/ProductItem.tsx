@@ -8,24 +8,32 @@ import {
 } from "./ui/card";
 import Link from "next/link";
 
-const ProductItem = () => {
+interface ProductItemProps {
+  _id: string;
+  name: string;
+  price: number;
+  stock: number;
+  images: string[];
+}
+
+const ProductItem = ({ _id, name, price, stock, images }: ProductItemProps) => {
   return (
-    <Link href={"/products/3"}>
-      <Card className="p-2 ">
+    <Link href={`/products/${_id}`}>
+      <Card className="p-2 hover:shadow-md transition-shadow">
         <CardContent className="p-0">
           <CardHeader>
             <Image
-              src={"/cacy.png"}
-              alt="plant"
+              src={images[0] ?? "/cacy.png"}
+              alt={name}
               width={900}
               height={900}
-              quality={90}
+              quality={100}
               className="object-contain bg-center h-40 w-full rounded-2xl"
             />
-            <CardTitle className="rounded-2xl">Succulent Plant</CardTitle>
+            <CardTitle className="rounded-2xl text-sm">{name}</CardTitle>
             <CardDescription className="text-sm">
-              <p>$14.99</p>
-              <p>Stock: 14</p>
+              <p>${price.toFixed(2)}</p>
+              <p>Stock: {stock}</p>
             </CardDescription>
           </CardHeader>
         </CardContent>

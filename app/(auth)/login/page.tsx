@@ -18,15 +18,49 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Fade } from "react-awesome-reveal";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LoginPage = () => {
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = () => {
-    setClicked(!clicked);
-  };
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { theme } = useTheme();
+  const router = useRouter();
+  const { setUser } = useAuth();
+
+  const handleLogin = async () => {
+    setError("");
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error);
+        return;
+      }
+
+      setUser(data.user);
+      router.push("/home");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -36,10 +70,22 @@ const LoginPage = () => {
             eden<span className="text-black font-black">.</span>
           </div>
 
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-md px-4 py-3 mb-4">
+              {error}
+            </div>
+          )}
+
           {/* LOGIN FORM */}
           <div>
             <InputGroup className="h-12 border-none shadow-none bg-gray-100">
-              <InputGroupInput placeholder="Email" type="email" />
+              <InputGroupInput
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <InputGroupAddon>
                 <MailIcon />
               </InputGroupAddon>
@@ -48,18 +94,20 @@ const LoginPage = () => {
             <InputGroup className="h-12 border-none shadow-none bg-gray-100 mt-4">
               <InputGroupInput
                 placeholder="Password"
-                type={clicked ? "text" : "password"}
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
               />
               <InputGroupAddon>
                 <LockIcon />
               </InputGroupAddon>
-
               <InputGroupAddon
-                onClick={handleClick}
+                onClick={() => setShowPassword((p) => !p)}
                 align={"inline-end"}
                 className="hover:cursor-pointer"
               >
-                {clicked ? <EyeClosedIcon /> : <EyeIcon />}
+                {showPassword ? <EyeClosedIcon /> : <EyeIcon />}
               </InputGroupAddon>
             </InputGroup>
           </div>
@@ -72,11 +120,13 @@ const LoginPage = () => {
             Having trouble signing in?
           </Link>
 
-          <Link href={"/home"}>
-            <Button className="bg-green-600 h-12 w-full font-bold">
-              Login <ArrowRightIcon />
-            </Button>
-          </Link>
+          <Button
+            onClick={handleLogin}
+            disabled={loading}
+            className="bg-green-600 h-12 w-full font-bold"
+          >
+            {loading ? "Signing in..." : "Login"} <ArrowRightIcon />
+          </Button>
 
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
@@ -105,7 +155,7 @@ const LoginPage = () => {
 
           <div>
             <p className="text-center mt-6 text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/register" className="text-green-600 font-bold">
                 Sign up
               </Link>

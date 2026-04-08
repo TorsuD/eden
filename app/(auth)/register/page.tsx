@@ -21,14 +21,54 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Fade } from "react-awesome-reveal";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 const RegisterPage = () => {
-  const [clicked, setClicked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [terms, setTerms] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { theme } = useTheme();
+  const router = useRouter();
+  const { setUser } = useAuth();
 
-  const handleClick = () => {
-    setClicked(!clicked);
+  const handleRegister = async () => {
+    setError("");
+    if (!name || !email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+    if (!terms) {
+      setError("You must accept the terms and conditions.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error);
+        return;
+      }
+
+      setUser(data.user);
+      router.push("/home");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,8 +83,15 @@ const RegisterPage = () => {
             From Eden to you. Create your account
           </div>
 
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-md px-4 py-3 mb-4">
+              {error}
+            </div>
+          )}
+
           {/* GOOGLE SIGN UP */}
-          <div className="flex items-center justify-center mt-10">
+          <div className="flex items-center justify-center">
             <Button
               variant={"outline"}
               className="bg-white text-sm border-gray-300 w-full h-12 flex items-center justify-center"
@@ -73,14 +120,24 @@ const RegisterPage = () => {
           {/* MANUAL SIGN UP FORM */}
           <div>
             <InputGroup className="h-12 border-none shadow-none bg-gray-100">
-              <InputGroupInput placeholder="Full name" type="text" />
+              <InputGroupInput
+                placeholder="Full name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
               <InputGroupAddon>
                 <UserIcon />
               </InputGroupAddon>
             </InputGroup>
 
             <InputGroup className="h-12 border-none shadow-none bg-gray-100 mt-4">
-              <InputGroupInput placeholder="Email" type="email" />
+              <InputGroupInput
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <InputGroupAddon>
                 <MailIcon />
               </InputGroupAddon>
@@ -89,36 +146,47 @@ const RegisterPage = () => {
             <InputGroup className="h-12 border-none shadow-none bg-gray-100 mt-4">
               <InputGroupInput
                 placeholder="Password"
-                type={clicked ? "text" : "password"}
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleRegister()}
               />
               <InputGroupAddon>
                 <LockIcon />
               </InputGroupAddon>
-
               <InputGroupAddon
-                onClick={handleClick}
+                onClick={() => setShowPassword((p) => !p)}
                 align={"inline-end"}
                 className="hover:cursor-pointer"
               >
-                {clicked ? <EyeClosedIcon /> : <EyeIcon />}
+                {showPassword ? <EyeClosedIcon /> : <EyeIcon />}
               </InputGroupAddon>
             </InputGroup>
           </div>
 
-          {/* ACCEPT TERMS AND CONDITION */}
+          {/* ACCEPT TERMS AND CONDITIONS */}
           <div className="flex items-center gap-2 mb-2">
-            <Checkbox id="terms" className="border border-green-600" />
+            <Checkbox
+              id="terms"
+              className="border border-green-600"
+              checked={terms}
+              onCheckedChange={(v) => setTerms(v === true)}
+            />
             <Label
               htmlFor="terms"
               className="flex my-4 gap-1 items-center text-sm justify-start font-bold"
             >
               Accept{" "}
-              <Link href={"/terms-and-conditions"}> terms and conditions</Link>
+              <Link href={"/terms-and-conditions"}>terms and conditions</Link>
             </Label>
           </div>
 
-          <Button className="bg-green-600 h-12 w-full font-bold">
-            Register <ArrowRightIcon />
+          <Button
+            onClick={handleRegister}
+            disabled={loading}
+            className="bg-green-600 h-12 w-full font-bold"
+          >
+            {loading ? "Creating account..." : "Register"} <ArrowRightIcon />
           </Button>
 
           <div>

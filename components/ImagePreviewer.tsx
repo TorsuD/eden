@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const images = ["/love.png", "/potted.png", "/anna.png", "/cacy.png"];
+interface ImagePreviewProps {
+  images: string[];
+}
 
-export default function ImagePreview() {
-  const [activeImage, setActiveImage] = useState(images[0]);
+export default function ImagePreview({ images }: ImagePreviewProps) {
+  const [activeImage, setActiveImage] = useState(images[0] ?? "/cacy.png");
 
   return (
     <div className="flex-[0.5] bg-muted rounded-2xl p-4 space-y-4">

@@ -2,6 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -27,9 +36,12 @@ import { TbFlowerFilled } from "react-icons/tb";
 import { LuFlower2 } from "react-icons/lu";
 import { GiSpotedFlower } from "react-icons/gi";
 import Image from "next/image";
-import { MenuIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { MenuIcon, Trash2Icon } from "lucide-react";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 import KeyboardCommand from "./KeyboardCommand";
+import { useCartStore } from "@/store/cartStore";
+import { useEffect } from "react";
+import { Button } from "./ui/button";
 
 const components: {
   title: string;
@@ -69,6 +81,22 @@ const components: {
 
 export default function Navbar() {
   const isMobile = useIsMobile();
+  const { user, logout } = useAuth();
+  const { items, fetchCart, removeItem, itemCount, total } = useCartStore();
+
+  // Fetch cart from DB when user is available
+  useEffect(() => {
+    if (user) fetchCart();
+  }, [user]);
+
+  const initials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    : "??";
 
   return (
     <nav className="flex fixed w-full z-50 bg-none items-center justify-between px-6 py-3 backdrop-blur-lg">
@@ -208,52 +236,129 @@ export default function Navbar() {
             <SheetTrigger className="flex items-center gap-2">
               <p className="text-sm">
                 CART <span className="text-green-500 font-black">|</span>{" "}
-                <span className="font-black">0</span>
+                <span className="font-black">{itemCount()}</span>
               </p>
             </SheetTrigger>
-            <SheetContent>
+            <SheetContent className="flex flex-col">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-3">
                   <div>Cart</div>
                   <div className="text-gray-400 text-sm font-medium">
-                    0 items
+                    {itemCount()} {itemCount() === 1 ? "item" : "items"}
                   </div>
                 </SheetTitle>
               </SheetHeader>
 
-              <div className="flex items-center justify-center h-screen">
-                <div className="text-center p-4">
-                  <div className="flex items-center justify-center">
-                    <Image
-                      src={"/cart.png"}
-                      width={100}
-                      height={100}
-                      className="h-40 w-40 object-contain"
-                      alt="cart"
-                    />
+              {items.length === 0 ? (
+                <div className="flex items-center justify-center flex-1">
+                  <div className="text-center p-4">
+                    <div className="flex items-center justify-center">
+                      <Image
+                        src={"/cart.png"}
+                        width={100}
+                        height={100}
+                        className="h-40 w-40 object-contain"
+                        alt="cart"
+                      />
+                    </div>
+                    <p className="font-bold text-lg">
+                      No <span className="text-green-500">items</span> in cart.
+                    </p>
+                    <p className="text-xs text-gray-500 mt-2">
+                      Oops! Looks like you haven&apos;t added anything yet. Time
+                      to treat yourself.
+                    </p>
                   </div>
-                  <p className="font-bold text-lg.">
-                    No <span className="text-green-500">items</span> in cart.
-                  </p>
-                  <p className="text-xs text-gray-500 mt-2">
-                    Oops! Looks like you haven't added anything yet. Time to
-                    treat yourself.
-                  </p>
                 </div>
-              </div>
+              ) : (
+                <>
+                  {/* CART ITEMS */}
+                  <div className="flex-1 overflow-y-auto space-y-4 py-4 px-4">
+                    {items.map((item) => (
+                      <div
+                        key={item.productId}
+                        className="flex items-center gap-3 border-b pb-4"
+                      >
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          width={64}
+                          height={64}
+                          className="h-16 w-16 rounded-lg object-contain bg-muted"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold truncate">
+                            {item.name}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            ${item.price.toFixed(2)} × {item.quantity}
+                          </p>
+                          <p className="text-sm font-bold text-green-600">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => removeItem(item.productId)}
+                          className="text-gray-400 hover:text-red-500 transition-colors"
+                        >
+                          <Trash2Icon className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* TOTAL + CHECKOUT */}
+                  <div className="border-t pt-4 space-y-3 px-4 py-6">
+                    <div className="flex justify-between font-semibold text-sm">
+                      <span>Total</span>
+                      <span className="text-green-600">
+                        ${total().toFixed(2)}
+                      </span>
+                    </div>
+                    <Link href="/checkout" className="block">
+                      <Button className="w-full bg-green-600 hover:bg-green-700">
+                        Checkout
+                      </Button>
+                    </Link>
+                  </div>
+                </>
+              )}
             </SheetContent>
           </Sheet>
         </div>
 
         {/* USER */}
         <div className="font-bold hidden lg:block">
-          <Avatar>
-            <AvatarImage
-              src="https://github.com/evilrabbit.png"
-              alt="@shadcn"
-            />
-            <AvatarFallback>DT</AvatarFallback>
-          </Avatar>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="cursor-pointer">
+                <AvatarFallback>{initials}</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              {user && (
+                <>
+                  <DropdownMenuLabel className="font-normal">
+                    <p className="font-semibold truncate">{user.name}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {user.email}
+                    </p>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                </>
+              )}
+              <DropdownMenuItem asChild>
+                <Link href="/orders">My Orders</Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={logout}
+                className="text-red-500 cursor-pointer focus:text-red-500"
+              >
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* MOBILE VIEW */}
