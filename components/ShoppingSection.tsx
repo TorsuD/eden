@@ -87,8 +87,8 @@ export default function ShoppingSection() {
       </div>
 
       <Link href="/products" className="center mt-20">
-        <Button className="bg-green-600 h-13 text-white text-xl w-fit px-10 rounded-xl font-bold">
-          Explore More Options <ArrowRightIcon />
+        <Button className="bg-green-600 h-13 text-white text-lg w-full lg:w-80 px-10 rounded-xl font-bold">
+          Explore <ArrowRightIcon />
         </Button>
       </Link>
     </div>
