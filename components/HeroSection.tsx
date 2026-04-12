@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { ShoppingBagIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { Fade } from "react-awesome-reveal";
 import Link from "next/link";
 
@@ -27,8 +27,8 @@ const HeroSection = () => {
 
             {/* SHOP NOW */}
             <Link href={"/products"}>
-              <Button className="bg-green-600 h-16 text-white text-xl w-full lg:w-40 rounded-xl font-bold">
-                Shop Now <ShoppingBagIcon />
+              <Button className="bg-green-600 h-16 text-white text-xl w-full lg:w-80 lg:mt-10 mt-6 rounded-xl font-bold">
+                Shop Now <ArrowRightIcon />
               </Button>
             </Link>
           </div>

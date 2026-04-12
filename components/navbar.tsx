@@ -217,7 +217,7 @@ export default function Navbar() {
       {/* USER SIDE */}
       <div className="flex items-center gap-6">
         {/*  */}
-        <p className="text-muted-foreground flex items-center gap-1 text-sm">
+        <p className="text-muted-foreground lg:flex hidden items-center gap-1 text-sm">
           Use{" "}
           <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
             <span className="text-lg">⌘</span>K
