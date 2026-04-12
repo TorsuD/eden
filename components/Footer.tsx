@@ -3,7 +3,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="px-2 lg:px-8 mt-20 py-5 border-t">
-      <div className="flex justify-between max-w-7xl mb-10">
+      <div className="lg:flex lg:flex-row flex-col text-center justify-between  max-w-7xl mb-10">
         <div className="text-green-500 font-bold">
           eden<span className="text-black">.</span>
         </div>
