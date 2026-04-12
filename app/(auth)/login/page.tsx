@@ -17,7 +17,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Fade } from "react-awesome-reveal";
-import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -28,7 +27,6 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { theme } = useTheme();
   const router = useRouter();
   const { setUser } = useAuth();
 
@@ -67,7 +65,7 @@ const LoginPage = () => {
       <Fade>
         <div className="w-82.5">
           <div className="text-center text-4xl text-green-600 mb-4 font-bold">
-            eden<span className="text-black font-black">.</span>
+            eden<span className="text-foreground font-black">.</span>
           </div>
 
           {/* ERROR MESSAGE */}
@@ -79,7 +77,7 @@ const LoginPage = () => {
 
           {/* LOGIN FORM */}
           <div>
-            <InputGroup className="h-12 border-none shadow-none bg-gray-100">
+            <InputGroup className="h-12 border-none shadow-none bg-muted">
               <InputGroupInput
                 placeholder="Email"
                 type="email"
@@ -91,7 +89,7 @@ const LoginPage = () => {
               </InputGroupAddon>
             </InputGroup>
 
-            <InputGroup className="h-12 border-none shadow-none bg-gray-100 mt-4">
+            <InputGroup className="h-12 border-none shadow-none bg-muted mt-4">
               <InputGroupInput
                 placeholder="Password"
                 type={showPassword ? "text" : "password"}
@@ -133,9 +131,7 @@ const LoginPage = () => {
               <div className="w-full border-t border-muted-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span
-                className={`${theme === "light" ? "bg-white" : "bg-black"} px-2 text-gray-500`}
-              >
+              <span className="bg-background px-2 text-muted-foreground">
                 or
               </span>
             </div>
@@ -144,7 +140,7 @@ const LoginPage = () => {
           <div className="flex items-center justify-center mt-10">
             <Button
               variant={"outline"}
-              className="bg-white text-sm border-gray-300 w-full h-12 flex items-center justify-center"
+              className="text-sm border-border w-full h-12 flex items-center justify-center"
             >
               <span className="text-sm flex items-center gap-1 font-bold">
                 Continue with Google

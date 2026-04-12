@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
       <Fade>
         <div className="w-82.5">
           <div className="text-center text-4xl text-green-600 mb-6 font-bold">
-            eden<span className="text-black font-black">.</span>
+            eden<span className="text-foreground font-black">.</span>
           </div>
 
           {sent ? (
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
                 </div>
               )}
 
-              <InputGroup className="h-12 border-none shadow-none bg-gray-100">
+              <InputGroup className="h-12 border-none shadow-none bg-muted">
                 <InputGroupInput
                   placeholder="Email"
                   type="email"

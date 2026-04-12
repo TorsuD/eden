@@ -67,7 +67,7 @@ function ResetPasswordForm() {
       <Fade>
         <div className="w-82.5">
           <div className="text-center text-4xl text-green-600 mb-6 font-bold">
-            eden<span className="text-black font-black">.</span>
+            eden<span className="text-foreground font-black">.</span>
           </div>
 
           {done ? (
@@ -87,7 +87,7 @@ function ResetPasswordForm() {
                 </div>
               )}
 
-              <InputGroup className="h-12 border-none shadow-none bg-gray-100">
+              <InputGroup className="h-12 border-none shadow-none bg-muted">
                 <InputGroupInput
                   placeholder="New password"
                   type={showPassword ? "text" : "password"}
@@ -106,7 +106,7 @@ function ResetPasswordForm() {
                 </InputGroupAddon>
               </InputGroup>
 
-              <InputGroup className="h-12 border-none shadow-none bg-gray-100 mt-4">
+              <InputGroup className="h-12 border-none shadow-none bg-muted mt-4">
                 <InputGroupInput
                   placeholder="Confirm new password"
                   type={showPassword ? "text" : "password"}
