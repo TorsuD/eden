@@ -8,7 +8,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { SearchIcon } from "lucide-react";
+import { Flower2Icon, SearchIcon } from "lucide-react";
 
 interface Product {
   _id: string;
@@ -21,9 +21,9 @@ interface Product {
 
 const CATEGORIES = [
   "All products",
-  "Succulent Plants",
-  "Indoor Plants",
-  "Outdoor Plants",
+  "Succulent",
+  "Indoor",
+  "Outdoor",
   "Flowers",
 ];
 
@@ -36,8 +36,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
       const matchesCategory =
         activeCategory === "All products" || p.category === activeCategory;
       const matchesSearch =
-        search === "" ||
-        p.name.toLowerCase().includes(search.toLowerCase());
+        search === "" || p.name.toLowerCase().includes(search.toLowerCase());
       return matchesCategory && matchesSearch;
     });
   }, [products, activeCategory, search]);
@@ -45,7 +44,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
   return (
     <>
       {/* SEARCH + TITLE */}
-      <div className="mt-20 flex items-center justify-between">
+      <div className="mt-20 flex lg:flex-row flex-col items-center justify-between">
         <div>
           <div className="title-font text-5xl">
             Products<span className="text-green-600 font-black">.</span>
@@ -55,7 +54,7 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
           </p>
         </div>
         <div>
-          <InputGroup className="h-10 border-none w-90 shadow-sm bg-gray-100">
+          <InputGroup className="h-10 border-none mt-2 lg:mt-0 w-90 shadow-sm bg-gray-100">
             <InputGroupInput
               type="text"
               placeholder="Search product"
@@ -70,21 +69,26 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
       </div>
 
       {/* CATEGORY TABS */}
-      <div className="flex items-center gap-3 mt-10 flex-wrap">
+      <div className="flex items-center gap-3 mt-5 flex-wrap">
         {CATEGORIES.map((cat) => (
-          <button key={cat} onClick={() => setActiveCategory(cat)}>
+          <div key={cat} onClick={() => setActiveCategory(cat)}>
             <Category
               name={cat}
               href="#"
-              className={activeCategory === cat ? "border-green-600 text-green-600" : ""}
+              className={
+                activeCategory === cat ? "border-green-600 text-green-600" : ""
+              }
             />
-          </button>
+          </div>
         ))}
       </div>
 
       {/* PRODUCTS GRID */}
       {filtered.length === 0 ? (
-        <p className="text-gray-400 mt-16 text-center">No products found.</p>
+        <div>
+          <Flower2Icon className="mx-auto mt-20 text-gray-300" size={48} />
+          <p className="text-gray-400 mt-8 text-center">No products found.</p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-10 items-center gap-3">
           {filtered.map((product) => (
