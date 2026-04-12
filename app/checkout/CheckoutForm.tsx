@@ -44,7 +44,7 @@ function PaymentForm({
     const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/orders/confirmation`,
+        return_url: `${process.env.NEXT_PUBLIC_APP_URL}/orders/confirmation`,
       },
       redirect: "if_required",
     });
@@ -170,28 +170,28 @@ export default function CheckoutForm() {
             Shipping Address
           </h2>
           <div className="space-y-3">
-            <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+            <InputGroup className="h-11 bg-muted border-none shadow-none">
               <InputGroupInput placeholder="Full name" value={shipping.name} onChange={field("name")} />
             </InputGroup>
-            <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+            <InputGroup className="h-11 bg-muted border-none shadow-none">
               <InputGroupInput placeholder="Address line 1" value={shipping.line1} onChange={field("line1")} />
             </InputGroup>
-            <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+            <InputGroup className="h-11 bg-muted border-none shadow-none">
               <InputGroupInput placeholder="Address line 2 (optional)" value={shipping.line2} onChange={field("line2")} />
             </InputGroup>
             <div className="grid grid-cols-2 gap-3">
-              <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+              <InputGroup className="h-11 bg-muted border-none shadow-none">
                 <InputGroupInput placeholder="City" value={shipping.city} onChange={field("city")} />
               </InputGroup>
-              <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+              <InputGroup className="h-11 bg-muted border-none shadow-none">
                 <InputGroupInput placeholder="State" value={shipping.state} onChange={field("state")} />
               </InputGroup>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+              <InputGroup className="h-11 bg-muted border-none shadow-none">
                 <InputGroupInput placeholder="Postal code" value={shipping.postalCode} onChange={field("postalCode")} />
               </InputGroup>
-              <InputGroup className="h-11 bg-gray-100 border-none shadow-none">
+              <InputGroup className="h-11 bg-muted border-none shadow-none">
                 <InputGroupInput placeholder="Country" value={shipping.country} onChange={field("country")} />
               </InputGroup>
             </div>
