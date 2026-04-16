@@ -73,7 +73,7 @@ export default function ProductActions({
         <div className="flex gap-4 items-center bg-muted">
           <Button
             variant="ghost"
-            className="text-xl py-7 px-5"
+            className="text-xl py-7 px-5 cursor-pointer"
             onClick={decrement}
           >
             <span className="text-2xl">-</span>
@@ -81,7 +81,7 @@ export default function ProductActions({
           <p className="text-lg text-center w-10">{count}</p>
           <Button
             variant="ghost"
-            className="text-xl py-7 px-5"
+            className="text-xl py-7 px-5 cursor-pointer"
             onClick={increment}
           >
             <span className="text-2xl">+</span>
