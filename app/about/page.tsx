@@ -76,7 +76,7 @@ const AboutPage = () => {
             </p>
           </div>
 
-          <div className="bg-green-50 rounded-3xl p-10 space-y-6">
+          <div className="rounded-3xl p-10 space-y-6">
             <div className="flex items-center gap-4">
               <span className="text-5xl font-black text-green-600">200+</span>
               <span className="text-gray-500 font-medium">
