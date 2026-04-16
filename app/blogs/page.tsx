@@ -88,15 +88,15 @@ const BlogPage = () => {
         </div>
 
         {/* FEATURED POST */}
-        <div className="bg-green-50 rounded-3xl p-8 lg:p-12 mb-12 grid lg:grid-cols-2 gap-8 items-center">
+        <div className="bg-muted rounded-3xl p-8 lg:p-12 mb-12 grid lg:grid-cols-2 gap-8 items-center">
           <div>
             <span className="bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
               Featured
             </span>
-            <h2 className="title-font text-3xl lg:text-4xl mt-4 mb-4">
+            <h2 className="title-font text-green-600 text-3xl lg:text-4xl mt-4 mb-4">
               {posts[0].title}
             </h2>
-            <p className="text-gray-600 leading-7 mb-6">{posts[0].excerpt}</p>
+            <p className="text-gray-400 leading-7 mb-6">{posts[0].excerpt}</p>
             <div className="flex items-center gap-3 text-sm text-gray-400">
               <ClockIcon className="w-4 h-4" />
               <span>{posts[0].readTime}</span>
