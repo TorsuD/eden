@@ -137,9 +137,7 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <p className="font-semibold">Location</p>
-                  <p className="text-gray-500 text-sm mt-0.5">
-                    Accra, Ghana
-                  </p>
+                  <p className="text-gray-500 text-sm mt-0.5">Accra, Ghana</p>
                 </div>
               </div>
 
@@ -156,8 +154,8 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="bg-green-50 rounded-2xl p-6">
-              <p className="font-semibold mb-1">Quick tip</p>
+            <div className="bg-green-200 rounded-2xl p-6">
+              <p className="font-semibold text-gray-400 mb-1">Quick tip</p>
               <p className="text-gray-500 text-sm leading-6">
                 For order-related questions, have your order number ready and
                 we&apos;ll resolve it as fast as possible.
