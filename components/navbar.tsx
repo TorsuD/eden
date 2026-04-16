@@ -274,9 +274,9 @@ export default function Navbar() {
                 <>
                   {/* CART ITEMS */}
                   <div className="flex-1 overflow-y-auto space-y-4 py-4 px-4">
-                    {items.map((item) => (
+                    {items.map((item, i) => (
                       <div
-                        key={item.productId}
+                        key={item.productId ?? i}
                         className="flex items-center gap-3 border-b pb-4"
                       >
                         <Image
