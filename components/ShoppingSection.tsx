@@ -12,35 +12,21 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { connectDB } from "@/lib/db";
+import Product from "@/models/Product";
 
-export default function ShoppingSection() {
-  const shoppingData = [
-    {
-      id: 1,
-      name: "Succulent Flower",
-      image: "/potted-flower.png",
-    },
-    {
-      id: 2,
-      name: "Love Flower",
-      image: "/love.png",
-    },
-    {
-      id: 3,
-      name: "Anna Flower",
-      image: "/anna.png",
-    },
-    {
-      id: 4,
-      name: "Cactus Flower",
-      image: "/cacy.png",
-    },
-    {
-      id: 5,
-      name: "Potted Flower",
-      image: "/potted.png",
-    },
-  ];
+async function getProducts() {
+  await connectDB();
+  const products = await Product.find({}).lean();
+  // Convert _id ObjectId to string for client serialisation
+  return products.map((p) => ({
+    ...p,
+    _id: p._id.toString(),
+  }));
+}
+
+export default async function ShoppingSection() {
+  const products = await getProducts();
 
   return (
     <div>
@@ -57,13 +43,13 @@ export default function ShoppingSection() {
           className="w-full"
         >
           <CarouselContent>
-            {shoppingData.map((item, index) => (
+            {products?.splice(1, 4)?.map((item, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <Link href={"/products/1"} className="p-1">
+                <Link href={`/products/${item._id}`} className="p-1">
                   <Card>
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       <Image
-                        src={item?.image}
+                        src={item?.images?.[0] || "/placeholder.png"}
                         alt="potted flower"
                         width={900}
                         height={900}

@@ -51,28 +51,28 @@ const components: {
 }[] = [
   {
     title: "Indoor Plants",
-    href: "/indoor-plants",
+    href: "/products/category?name=indoor-plants",
     icon: RiPlantFill,
     description:
       "Plants that thrive indoors with minimal sunlight, helping to purify air and enhance interior spaces.",
   },
   {
     title: "Outdoor Plants",
-    href: "/outdoor-plants",
+    href: "/products/category?name=outdoor-plants",
     icon: TbFlowerFilled,
     description:
       "Hardy plants suited for gardens, balconies, and outdoor landscapes, able to withstand natural weather conditions.",
   },
   {
     title: "Flowers",
-    href: "/flowers",
+    href: "/products/category?name=flowers",
     icon: LuFlower2,
     description:
       "Beautiful blooming plants known for their vibrant colors, fragrance, and decorative appeal.",
   },
   {
     title: "Succulents",
-    href: "/succulents",
+    href: "/products/category?name=succulents",
     icon: GiSpotedFlower,
     description:
       "Low-maintenance plants that store water in their leaves, ideal for dry environments and indoor décor.",
@@ -125,7 +125,7 @@ export default function Navbar() {
                   <NavigationMenuLink asChild>
                     <a
                       className="from-green/50 to-green-700 flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-4 no-underline outline-hidden transition-all duration-200 select-none focus:shadow-md md:p-6"
-                      href="/"
+                      href="/products"
                     >
                       <div className="mb-2 text-lg text-white font-medium sm:mt-4">
                         Plants & Flowers
@@ -137,13 +137,13 @@ export default function Navbar() {
                     </a>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="Featured Collection">
+                <ListItem href="/featured" title="Featured Collection">
                   Our most loved plants, carefully selected for every space.
                 </ListItem>
-                <ListItem href="/docs/installation" title="Special Offers">
+                <ListItem href="/special-offers" title="Special Offers">
                   Seasonal deals on fresh plants and elegant blooms.
                 </ListItem>
-                <ListItem href="care-guides" title="Care & Tips">
+                <ListItem href="/care-guides" title="Care & Tips">
                   Expert advice to keep your plants thriving year-round.
                 </ListItem>
               </ul>
@@ -181,7 +181,7 @@ export default function Navbar() {
               <ul className="grid w-75 gap-4">
                 <li>
                   <NavigationMenuLink asChild>
-                    <Link href="#">
+                    <Link href="/about">
                       <div className="font-medium">
                         About{" "}
                         <span className="text-green-500 font-bold">Eden</span>
@@ -192,7 +192,7 @@ export default function Navbar() {
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="#">
+                    <Link href="/contact">
                       <div className="font-medium">Contact</div>
                       <div className="text-muted-foreground">
                         Reach out to us
@@ -200,7 +200,7 @@ export default function Navbar() {
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="#">
+                    <Link href="/blogs">
                       <div className="font-medium">Blog</div>
                       <div className="text-muted-foreground">
                         Read our latest blog posts.
