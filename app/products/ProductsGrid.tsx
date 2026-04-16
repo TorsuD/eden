@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import ProductItem from "@/components/ProductItem";
 import Category from "@/components/ui/product-category";
 import {
@@ -21,14 +22,28 @@ interface Product {
 
 const CATEGORIES = [
   "All products",
-  "Succulent",
-  "Indoor",
-  "Outdoor",
+  "Succulent plants",
+  "Indoor plants",
+  "Outdoor plants",
   "Flowers",
 ];
 
-export default function ProductsGrid({ products }: { products: Product[] }) {
-  const [activeCategory, setActiveCategory] = useState("All products");
+const CATEGORY_TO_SLUG: Record<string, string> = {
+  "Indoor plants": "indoor-plants",
+  "Outdoor plants": "outdoor-plants",
+  "Flowers": "flowers",
+  "Succulent plants": "succulents",
+};
+
+export default function ProductsGrid({
+  products,
+  initialCategory = "All products",
+}: {
+  products: Product[];
+  initialCategory?: string;
+}) {
+  const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
@@ -71,7 +86,17 @@ export default function ProductsGrid({ products }: { products: Product[] }) {
       {/* CATEGORY TABS */}
       <div className="flex items-center gap-3 mt-5 flex-wrap">
         {CATEGORIES.map((cat) => (
-          <div key={cat} onClick={() => setActiveCategory(cat)}>
+          <div
+            key={cat}
+            onClick={() => {
+              setActiveCategory(cat);
+              if (cat === "All products") {
+                router.push("/products");
+              } else {
+                router.push(`/products/category?name=${CATEGORY_TO_SLUG[cat]}`);
+              }
+            }}
+          >
             <Category
               name={cat}
               href="#"

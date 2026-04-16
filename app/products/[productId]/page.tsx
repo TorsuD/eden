@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import ImagePreview from "@/components/ImagePreviewer";
 import Navbar from "@/components/navbar";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +5,7 @@ import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import { notFound } from "next/navigation";
 import ProductActions from "./ProductActions";
+import Footer from "@/components/Footer";
 
 async function getProduct(id: string) {
   await connectDB();
@@ -31,7 +31,7 @@ const ProductPage = async ({
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex pt-30 max-w-7xl mx-auto px-4 w-full">
+      <div className="flex flex-col-reverse lg:flex-row  max-w-7xl mx-auto px-4 w-full pt-20 lg:pt-30 gap-10 lg:gap-20">
         <div className="flex-[0.5]">
           {/* PRODUCT NAME */}
           <div className="text-green-500 title-font text-5xl lg:text-5xl">
@@ -56,7 +56,7 @@ const ProductPage = async ({
 
           {/* TAGS */}
           <div className="mt-3 flex items-center gap-2 flex-wrap">
-            {(product.tags as string[]).map((tag) => (
+            {(product.tags as string[])?.map((tag) => (
               <Badge key={tag} variant="outline">
                 {tag}
               </Badge>

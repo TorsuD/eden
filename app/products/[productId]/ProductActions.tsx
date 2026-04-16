@@ -28,7 +28,8 @@ export default function ProductActions({
   const addItem = useCartStore((s) => s.addItem);
   const cartItems = useCartStore((s) => s.items);
 
-  const cartQty = cartItems.find((i) => i.productId === productId)?.quantity ?? 0;
+  const cartQty =
+    cartItems.find((i) => i.productId === productId)?.quantity ?? 0;
   const remaining = stock - cartQty;
 
   const increment = () => {
@@ -64,40 +65,52 @@ export default function ProductActions({
         <p className="text-sm text-red-500 font-medium">{stockError}</p>
       )}
       {remaining <= 3 && remaining > 0 && !stockError && (
-        <p className="text-sm text-orange-500 font-medium">Only {remaining} left!</p>
+        <p className="text-sm text-orange-500 font-medium">
+          Only {remaining} left!
+        </p>
       )}
-    <div className="flex items-center gap-2">
-      <div className="flex gap-4 items-center bg-muted">
-        <Button variant="ghost" className="text-xl py-7 px-5" onClick={decrement}>
-          <span className="text-2xl">-</span>
-        </Button>
-        <p className="text-lg text-center w-10">{count}</p>
-        <Button variant="ghost" className="text-xl py-7 px-5" onClick={increment}>
-          <span className="text-2xl">+</span>
+      <div className="flex items-center flex-col lg:flex-row gap-2">
+        <div className="flex gap-4 items-center bg-muted">
+          <Button
+            variant="ghost"
+            className="text-xl py-7 px-5"
+            onClick={decrement}
+          >
+            <span className="text-2xl">-</span>
+          </Button>
+          <p className="text-lg text-center w-10">{count}</p>
+          <Button
+            variant="ghost"
+            className="text-xl py-7 px-5"
+            onClick={increment}
+          >
+            <span className="text-2xl">+</span>
+          </Button>
+        </div>
+
+        <Button
+          onClick={handleAddToCart}
+          disabled={loading || remaining === 0}
+          className={`py-7 cursor-pointer px-10 rounded-none transition-colors ${
+            added
+              ? "bg-green-700 hover:bg-green-700"
+              : "bg-green-600 hover:bg-green-700"
+          }`}
+        >
+          {added ? (
+            <>
+              <CheckIcon className="w-4 h-4 mr-2" /> Added!
+            </>
+          ) : (
+            <>
+              <ShoppingCartIcon className="w-4 h-4 mr-2" />
+              {remaining === 0
+                ? "Out of Stock"
+                : `Add to Cart $${(price * count).toFixed(2)}`}
+            </>
+          )}
         </Button>
       </div>
-
-      <Button
-        onClick={handleAddToCart}
-        disabled={loading || remaining === 0}
-        className={`py-7 cursor-pointer px-10 rounded-none transition-colors ${
-          added
-            ? "bg-green-700 hover:bg-green-700"
-            : "bg-green-600 hover:bg-green-700"
-        }`}
-      >
-        {added ? (
-          <>
-            <CheckIcon className="w-4 h-4 mr-2" /> Added!
-          </>
-        ) : (
-          <>
-            <ShoppingCartIcon className="w-4 h-4 mr-2" />
-            {remaining === 0 ? "Out of Stock" : `Add to Cart $${(price * count).toFixed(2)}`}
-          </>
-        )}
-      </Button>
-    </div>
     </div>
   );
 }
