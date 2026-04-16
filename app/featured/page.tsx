@@ -36,13 +36,14 @@ const FeaturedCollectionPage = async () => {
         </div>
 
         {/* BANNER */}
-        <div className="bg-green-50 rounded-3xl p-8 mb-12 flex items-center justify-between gap-6">
+        <div className="bg-green-500 rounded-3xl p-8 mb-12 flex items-center justify-between gap-6">
           <div>
-            <h2 className="font-bold text-xl mb-1">
+            <h2 className="font-bold text-xl text-muted mb-1">
               Hand-picked. Expert approved.
             </h2>
             <p className="text-gray-500 text-sm">
-              Every plant in this collection has been selected for exceptional quality and character.
+              Every plant in this collection has been selected for exceptional
+              quality and character.
             </p>
           </div>
           <span className="text-5xl shrink-0">🌟</span>
