@@ -26,9 +26,29 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
 
   const router = useRouter();
   const { setUser } = useAuth();
+
+  const handleGuestLogin = async () => {
+    setGuestLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/auth/demo", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error);
+        return;
+      }
+      setUser(data.user);
+      router.push("/home");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setGuestLoading(false);
+    }
+  };
 
   const handleLogin = async () => {
     setError("");
@@ -137,7 +157,7 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center mt-10">
+          <div className="flex flex-col gap-3 mt-10">
             <Button
               variant={"outline"}
               className="text-sm border-border w-full h-12 flex items-center justify-center"
@@ -146,6 +166,15 @@ const LoginPage = () => {
                 Continue with Google
               </span>{" "}
               <FcGoogle />
+            </Button>
+
+            <Button
+              variant={"outline"}
+              onClick={handleGuestLogin}
+              disabled={guestLoading}
+              className="text-sm border-green-200 text-green-700 w-full h-12 font-bold hover:bg-green-50"
+            >
+              {guestLoading ? "Signing in..." : "Continue as Guest"}
             </Button>
           </div>
 
