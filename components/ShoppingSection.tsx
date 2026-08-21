@@ -53,6 +53,7 @@ export default async function ShoppingSection() {
                         alt="potted flower"
                         width={900}
                         height={900}
+                        sizes="320px"
                         className="h-80 w-80 object-contain"
                       />
                     </CardContent>

@@ -41,9 +41,10 @@ const HeroSection = () => {
               <Image
                 src={"/leaf.jpg"}
                 alt="plant"
-                width={900}
-                height={900}
+                width={720}
+                height={1280}
                 quality={90}
+                priority
                 className="object-contain bg-center h-[90%] w-full rounded-2xl"
               />
             </Fade>

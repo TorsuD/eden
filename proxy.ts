@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken, COOKIE_NAME } from "./lib/auth";
 
-const PROTECTED_PATHS = ["/home", "/products", "/checkout", "/orders"];
+const PROTECTED_PATHS = ["/checkout", "/orders"];
 const AUTH_PATHS = ["/login", "/register", "/forgot-password", "/reset-password"];
 
 export async function proxy(req: NextRequest) {

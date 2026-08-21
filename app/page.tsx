@@ -1,5 +1,5 @@
-import LoginPage from "./(auth)/login/page";
+import HomePage from "./home/page";
 
-export default function HomePage() {
-  return <LoginPage />;
+export default function RootPage() {
+  return <HomePage />;
 }
