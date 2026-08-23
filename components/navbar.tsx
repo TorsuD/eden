@@ -105,7 +105,7 @@ export default function Navbar() {
         href={"/home"}
         className="text-center text-2xl text-green-600 font-bold"
       >
-        eden<span className="text-black font-black">.</span>
+        eden<span className="text-black dark:text-white font-black">.</span>
       </Link>
 
       {/* SEARCH FUNCTIONALITY */}
@@ -243,7 +243,7 @@ export default function Navbar() {
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-3">
                   <div>Cart</div>
-                  <div className="text-gray-400 text-sm font-medium">
+                  <div className="text-gray-400 dark:text-white text-sm font-medium">
                     {itemCount()} {itemCount() === 1 ? "item" : "items"}
                   </div>
                 </SheetTitle>
@@ -264,7 +264,7 @@ export default function Navbar() {
                     <p className="font-bold text-lg">
                       No <span className="text-green-500">items</span> in cart.
                     </p>
-                    <p className="text-xs text-gray-500 mt-2">
+                    <p className="text-xs text-gray-500 dark:text-white mt-2">
                       Oops! Looks like you haven&apos;t added anything yet. Time
                       to treat yourself.
                     </p>
@@ -290,7 +290,7 @@ export default function Navbar() {
                           <p className="text-sm font-semibold truncate">
                             {item.name}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 dark:text-white">
                             ${item.price.toFixed(2)} × {item.quantity}
                           </p>
                           <p className="text-sm font-bold text-green-600">
@@ -299,7 +299,7 @@ export default function Navbar() {
                         </div>
                         <button
                           onClick={() => removeItem(item.productId)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
+                          className="text-gray-400 dark:text-white hover:text-red-500 transition-colors"
                         >
                           <Trash2Icon className="w-4 h-4" />
                         </button>
@@ -396,7 +396,7 @@ export default function Navbar() {
                 </li>
               </ul>
 
-              <SheetFooter className="text-gray-400 font-bold">
+              <SheetFooter className="text-gray-400 dark:text-white font-bold">
                 Eden 2026. All rights reserved
               </SheetFooter>
             </SheetContent>

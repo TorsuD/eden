@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="px-2 lg:px-8 mt-20 py-5 border-t">
       <div className="lg:flex lg:flex-row flex-col text-center justify-between  max-w-7xl mb-10">
         <div className="text-green-500 font-bold">
-          eden<span className="text-black">.</span>
+          eden<span className="text-black dark:text-white">.</span>
         </div>
         <Link href={"/terms-and-conditions"} className="">
           terms and conditions
@@ -13,11 +13,11 @@ const Footer = () => {
       </div>
 
       <div>
-        <p className="text-sm text-center font-medium text-gray-500">
+        <p className="text-sm text-center font-medium text-gray-500 dark:text-white">
           2026 Eden. All rights reserved.
         </p>
 
-        <p className="text-xs text-center mt-5 text-gray-400">
+        <p className="text-xs text-center mt-5 text-gray-400 dark:text-white">
           by Derrick Torsu.
         </p>
       </div>

@@ -74,12 +74,12 @@ function ResetPasswordForm() {
             <div className="text-center space-y-4">
               <CheckCircleIcon className="w-12 h-12 text-green-600 mx-auto" />
               <h2 className="text-xl font-bold">Password updated!</h2>
-              <p className="text-gray-500 text-sm">Redirecting you to login...</p>
+              <p className="text-gray-500 dark:text-white text-sm">Redirecting you to login...</p>
             </div>
           ) : (
             <>
               <h2 className="text-xl font-bold mb-1">Set a new password</h2>
-              <p className="text-gray-500 text-sm mb-6">Must be at least 8 characters.</p>
+              <p className="text-gray-500 dark:text-white text-sm mb-6">Must be at least 8 characters.</p>
 
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-md px-4 py-3 mb-4">
@@ -129,7 +129,7 @@ function ResetPasswordForm() {
 
               <Link
                 href="/login"
-                className="flex items-center justify-center text-sm text-gray-500 mt-5 hover:text-gray-700"
+                className="flex items-center justify-center text-sm text-gray-500 dark:text-white mt-5 hover:text-gray-700"
               >
                 Back to login
               </Link>

@@ -34,7 +34,7 @@ function ConfirmationContent() {
         {status === "loading" && (
           <div className="text-center space-y-4">
             <Loader2Icon className="w-12 h-12 animate-spin text-green-600 mx-auto" />
-            <p className="text-gray-500">Confirming your order...</p>
+            <p className="text-gray-500 dark:text-white">Confirming your order...</p>
           </div>
         )}
 
@@ -53,12 +53,12 @@ function ConfirmationContent() {
                 Order confirmed
                 <span className="text-green-600 font-black">.</span>
               </h1>
-              <p className="text-gray-700 mt-3 leading-relaxed">
+              <p className="text-gray-700 dark:text-white mt-3 leading-relaxed">
                 Thank you for your purchase! Your plants are on their way.
                 We&apos;ll send you an update once your order ships.
               </p>
             </div>
-            <p className="text-xs text-gray-400 font-mono break-all">
+            <p className="text-xs text-gray-400 dark:text-white font-mono break-all">
               Ref: {paymentIntentId}
             </p>
             <div className="flex gap-3 justify-center">
